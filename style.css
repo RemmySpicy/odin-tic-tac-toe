@@ -21,7 +21,7 @@ body {
     margin: 2rem 0 1rem;
 }
 
-.sub-title {
+.game-status {
     font-size: 2rem;
 }
 
@@ -39,4 +39,10 @@ body {
 
 .slots {
     font-size: 3rem;
+}
+
+
+.reset {
+    margin-block: 1rem;
+    padding: .6rem;
 }
