@@ -20,27 +20,34 @@ function Player(name, marker) {
     }
 }
 
-let boy = Player('boy', 'X');
-let girl = Player('girl', 'O')
+let playerOne = Player('boy', 'X');
+let playerTwo = Player('girl', 'O')
 
 
-
+let currentPlayer = playerOne;
 
 
 gameContainer.addEventListener('click', play)
 
 function play(e) {
     
-
     if (!e.target.textContent) {
         console.log(e.target.classList)
-        e.target.textContent = boy.marker;
+        e.target.textContent = currentPlayer.marker;
+
+        changeCurrentPlayer()
     } else {
         console.log("Nothing added")
     }
-    
-    let array = []
-    // array
 }
+
+function changeCurrentPlayer() {
+    if (currentPlayer === playerOne) {
+        currentPlayer = playerTwo;
+    } else {
+        currentPlayer = playerOne;
+    }
+}
+
 
 // Build the functions that allow players to add marks to a specific spot on the board, and then tie it to the DOM, letting players click on the gameboard to place their marker. Don’t forget the logic that keeps players from playing in spots that are already taken!
