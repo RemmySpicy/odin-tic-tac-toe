@@ -1,23 +1,10 @@
+const gameContainer = document.querySelector('.container');
+
+
 (gameBoard = () => {
     let board = ['x', 'o', 'x', 'o', 'x', 'o', 'x', 'o', 'x'];
     console.log(board)
 })()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // (displayController => {
 
@@ -25,21 +12,33 @@
 
 // console.log(board)
 
-function Player(name) {
-    player = (name) => {
-        return 'Player' + name;
-    } 
+function Player(name, marker) {
+    
+    return {
+        marker,
+        name,
+    }
 }
 
-playerOne = {
+let boy = Player('boy', 'X');
+let girl = Player('girl', 'O')
 
-}
 
-playerTwo = {
 
-}
 
-function play () {
+
+gameContainer.addEventListener('click', play)
+
+function play(e) {
+    
+
+    if (!e.target.textContent) {
+        console.log(e.target.classList)
+        e.target.textContent = boy.marker;
+    } else {
+        console.log("Nothing added")
+    }
+    
     let array = []
     // array
 }
