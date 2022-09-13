@@ -2,8 +2,14 @@ const gameContainer = document.querySelector('.container');
 const gameStatus = document.querySelector('.game-status');
 const reset = document.querySelector('.reset');
 
-gameBoard = [];
 
+// Play turn event call
+gameContainer.addEventListener('click', play);
+
+// Reset game event call
+reset.addEventListener('click', resetGame)
+
+gameBoard = [2, 2, 2, 2, 2, 2, 2, 2, 2];
 
 // (displayController => {
 
@@ -29,14 +35,17 @@ let currentPlayer = playerOne;
 // Play turn function
 function play(e) {
     
+    
     if (!e.target.textContent) {
-        console.log(e.target.classList.value)
+        console.log(+e.target.dataset.index)
         e.target.textContent = currentPlayer.marker;
-        gameBoard.push(currentPlayer.marker);
+
+        let index = Number(e.target.dataset.index)
+        gameBoard[index] = currentPlayer.marker;
 
         changeCurrentPlayer()
     } else {
-        gameStatus.textContent = 'Play in empty slot'
+        gameStatus.textContent = 'Play in empty slot';
     }
 
     gameEnd()
@@ -66,25 +75,31 @@ function gameEnd() {
     let r3c2 = document.querySelector('.r3c2').textContent;
     let r3c3 = document.querySelector('.r3c3').textContent;
 
-    if (r1c1 == r1c2 && r1c1 == r1c3) {
-        if (!r1c1) return;
-        gameStatus.textContent = "Someone Won 1"
-    }
+    // if (r1c1 == r1c2 && r1c1 == r1c3) {
+    //     if (!r1c1) return;
+    //     gameStatus.textContent = "Someone Won 1"
+    // }
     
-    if (r2c1 == r2c2 && r2c1 == r2c3) {
-        if (!r2c1) return;
-        gameStatus.textContent = "Someone Won 2"
-    }
+    // if (r2c1 == r2c2 && r2c1 == r2c3) {
+    //     if (!r2c1) return;
+    //     gameStatus.textContent = "Someone Won 2"
+    // }
 
-    if (r3c1 == r3c2 && r3c1 == r3c3) {
-        if (!r3c1) return;
-        gameStatus.textContent = "Someone Won 3"
-    }
+    // if (r3c1 == r3c2 && r3c1 == r3c3) {
+    //     if (!r3c1) return;
+    //     gameStatus.textContent = "Someone Won 3"
+    // }
  
-    if (gameBoard.length >= 9) {
-        gameStatus.textContent = "Game Over! It's a draw"
-        console.log(gameBoard)
-    }
+    // if (gameBoard.length >= 9) {
+    //     gameStatus.textContent = "Game Over! It's a draw"
+    // }
+
+    console.log(gameBoard)
 }
 
+
+// Reset game function
+function  resetGame() {
+    location.reload()
+}
 
