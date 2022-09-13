@@ -9,7 +9,8 @@ gameContainer.addEventListener('click', play);
 // Reset game event call
 reset.addEventListener('click', resetGame)
 
-gameBoard = [2, 2, 2, 2, 2, 2, 2, 2, 2];
+// Gameboard data
+gameBoard = [];
 
 // (displayController => {
 
@@ -45,12 +46,13 @@ function play(e) {
 
         changeCurrentPlayer()
     } else {
-        gameStatus.textContent = 'Play in empty slot';
+        gameStatus.textContent = 'Select an empty slot';
     }
 
     gameEnd()
 }
 
+// Change current player function
 function changeCurrentPlayer() {
     if (currentPlayer === playerOne) {
         currentPlayer = playerTwo;
@@ -63,21 +65,21 @@ function changeCurrentPlayer() {
 
 // Check WIN/DRAW function
 function gameEnd() {
-    let r1c1 = document.querySelector('.r1c1').textContent;
-    let r1c2 = document.querySelector('.r1c2').textContent;
-    let r1c3 = document.querySelector('.r1c3').textContent;
+    // let r1c1 = document.querySelector('.r1c1').textContent;
+    // let r1c2 = document.querySelector('.r1c2').textContent;
+    // let r1c3 = document.querySelector('.r1c3').textContent;
 
-    let r2c1 = document.querySelector('.r2c1').textContent;
-    let r2c2 = document.querySelector('.r2c2').textContent;
-    let r2c3 = document.querySelector('.r2c3').textContent;
+    // let r2c1 = document.querySelector('.r2c1').textContent;
+    // let r2c2 = document.querySelector('.r2c2').textContent;
+    // let r2c3 = document.querySelector('.r2c3').textContent;
 
-    let r3c1 = document.querySelector('.r3c1').textContent;
-    let r3c2 = document.querySelector('.r3c2').textContent;
-    let r3c3 = document.querySelector('.r3c3').textContent;
+    // let r3c1 = document.querySelector('.r3c1').textContent;
+    // let r3c2 = document.querySelector('.r3c2').textContent;
+    // let r3c3 = document.querySelector('.r3c3').textContent;
 
     // if (r1c1 == r1c2 && r1c1 == r1c3) {
-    //     if (!r1c1) return;
-    //     gameStatus.textContent = "Someone Won 1"
+        // if (!r1c1) return;
+        // gameStatus.textContent = "Someone Won 1"
     // }
     
     // if (r2c1 == r2c2 && r2c1 == r2c3) {
@@ -89,11 +91,45 @@ function gameEnd() {
     //     if (!r3c1) return;
     //     gameStatus.textContent = "Someone Won 3"
     // }
+    console.log(gameBoard)
  
-    // if (gameBoard.length >= 9) {
-    //     gameStatus.textContent = "Game Over! It's a draw"
-    // }
+    if (gameBoard[0] == gameBoard[1] && gameBoard[2] == gameBoard[0]) {
+        if (!gameBoard[0]) return
+        gameStatus.textContent = "row 1"
+    }
+    
+    if (gameBoard[3] == gameBoard[4] && gameBoard[5] == gameBoard[3]) {
+        if (!gameBoard[3]) return
+        gameStatus.textContent = "row 2"
+    }
+    
+    if (gameBoard[6] == gameBoard[7] && gameBoard[8] == gameBoard[6]) {
+        if (!gameBoard[6]) return
+        gameStatus.textContent = "row 3"
+    }
+    
+    
+    if (gameBoard[0] == gameBoard[3] && gameBoard[6] == gameBoard[0]) {
+        if (!gameBoard[0]) return;
+        gameStatus.textContent = 'column 1';
+    }
+    
+    if (gameBoard[1] == gameBoard[4] && gameBoard[7] == gameBoard[1]) {
+        if (!gameBoard[1]) return;
+        gameStatus.textContent = 'column 2';
+    }
+    
+    if (gameBoard[2] == gameBoard[5] && gameBoard[8] == gameBoard[2]) {
+        if (!gameBoard[2]) return;
+        gameStatus.textContent = 'column 3';
+    }
 
+    
+
+    if (gameBoard.join('').length >= 9) {
+        gameStatus.textContent = "Game Over! It's a draw"
+    }
+    
     console.log(gameBoard)
 }
 
