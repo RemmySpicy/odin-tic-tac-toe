@@ -12,7 +12,7 @@ reset.addEventListener('click', resetGame);
 // Gameboard data
 let gameBoard = [];
 
-let winPatterns = [
+const winPatterns = [
     [0, 1, 2],
     [3, 4, 5],
     [6, 7, 8],
@@ -49,18 +49,17 @@ function play(e) {
     
     
     if (!e.target.textContent) {
-        console.log(+e.target.dataset.index)
+        // console.log(+e.target.dataset.index)
         e.target.textContent = currentPlayer.marker;
 
         let index = Number(e.target.dataset.index)
         gameBoard[index] = currentPlayer.marker;
 
-        changeCurrentPlayer()
+        gameEnd()
     } else {
         gameStatus.textContent = 'Select an empty slot';
     }
 
-    gameEnd()
 }
 
 // Change current player function
@@ -77,50 +76,31 @@ function changeCurrentPlayer() {
 // Check WIN/DRAW function
 function gameEnd() {
    
-    console.log(gameBoard)
+    // let marker = currentPlayer.marker;
 
-    let marker = currentPlayer.marker;
-    console.log(marker)
- 
-    if (gameBoard[0] == gameBoard[1] && gameBoard[2] == gameBoard[0]) {
-        if (!gameBoard[0]) return
-        gameStatus.textContent = "row 1"
-    }
-    
-    if (gameBoard[3] == gameBoard[4] && gameBoard[5] == gameBoard[3]) {
-        console.log('ermm')
-        if (!gameBoard[3]) return
-        gameStatus.textContent = "row 2"
-    }
-    
-    if (gameBoard[6] == gameBoard[7] && gameBoard[8] == gameBoard[6]) {
-        if (!gameBoard[6]) return
-        gameStatus.textContent = "row 3"
-    }
-    
-    
-    if (gameBoard[0] == gameBoard[3] && gameBoard[6] == gameBoard[0]) {
-        if (!gameBoard[0]) return;
-        gameStatus.textContent = 'column 1';
-    }
-    
-    if (gameBoard[1] == gameBoard[4] && gameBoard[7] == gameBoard[1]) {
-        if (!gameBoard[1]) return;
-        gameStatus.textContent = 'column 2';
-    }
-    
-    if (gameBoard[2] == gameBoard[5] && gameBoard[8] == gameBoard[2]) {
-        if (!gameBoard[2]) return;
-        gameStatus.textContent = 'column 3';
+    for (let i = 0; i < 8; i++) {
+        let pattern = winPatterns[i]
+        let a = gameBoard[pattern[0]];
+        let b = gameBoard[pattern[1]];
+        let c = gameBoard[pattern[2]];
+
+
+        if (a === undefined || b === undefined || c === undefined) continue;
+        console.log({a, b, c})
+        console.log(pattern)
+
+        if (a === b && b === c) {
+            gameStatus.textContent = `${currentPlayer.name} (${currentPlayer.marker}) wins, please restart game`;
+            gameContainer.removeEventListener('click', play)
+        }
     }
 
-    
 
     if (gameBoard.join('').length >= 9) {
         gameStatus.textContent = "Game Over! It's a draw"
     }
+    changeCurrentPlayer()
     
-    console.log(gameBoard)
 }
 
 
