@@ -2,7 +2,6 @@ const gameContainer = document.querySelector('.container');
 const gameStatus = document.querySelector('.game-status');
 const reset = document.querySelector('.reset');
 
-
 // Play turn event call
 gameContainer.addEventListener('click', play);
 
@@ -30,7 +29,6 @@ const winPatterns = [
 // console.log(board)
 
 function Player(name, marker) {
-    
     return {
         marker,
         name,
@@ -42,14 +40,10 @@ let playerTwo = Player('girl', 'O')
 
 let currentPlayer = playerOne;
 
-
-
 // Play turn function
 function play(e) {
     
-    
     if (!e.target.textContent) {
-        // console.log(+e.target.dataset.index)
         e.target.textContent = currentPlayer.marker;
 
         let index = Number(e.target.dataset.index)
@@ -59,7 +53,6 @@ function play(e) {
     } else {
         gameStatus.textContent = 'Select an empty slot';
     }
-
 }
 
 // Change current player function
@@ -76,36 +69,29 @@ function changeCurrentPlayer() {
 // Check WIN/DRAW function
 function gameEnd() {
    
-    // let marker = currentPlayer.marker;
-
     for (let i = 0; i < 8; i++) {
         let pattern = winPatterns[i]
         let a = gameBoard[pattern[0]];
         let b = gameBoard[pattern[1]];
         let c = gameBoard[pattern[2]];
 
-
         if (a === undefined || b === undefined || c === undefined) continue;
-        console.log({a, b, c})
-        console.log(pattern)
 
         if (a === b && b === c) {
             gameStatus.textContent = `${currentPlayer.name} (${currentPlayer.marker}) wins, please restart game`;
             gameContainer.removeEventListener('click', play)
+            return;
         }
     }
-
 
     if (gameBoard.join('').length >= 9) {
         gameStatus.textContent = "Game Over! It's a draw"
     }
     changeCurrentPlayer()
-    
 }
-
 
 // Reset game function
-function  resetGame() {
-    location.reload()
+function  resetGame(confirm) {
+    confirm = window.confirm('Are you sure you want to restart?')
+    confirm ? location.reload() : alert('play on');
 }
-
