@@ -6,7 +6,10 @@ const reset = document.querySelector('.reset');
 gameContainer.addEventListener('click', play);
 
 // Reset game event call
-reset.addEventListener('click', resetGame);
+reset.addEventListener('click', () => resetGame(allowReset));
+
+// Check if game is ongoing when reset is clicked 
+let allowReset = false;
 
 // Gameboard data
 let gameBoard = [];
@@ -20,7 +23,7 @@ const winPatterns = [
     [2, 5, 8],
     [0, 4, 8],
     [2, 4, 6]
-]
+];
 
 // (displayController => {
 
@@ -29,23 +32,29 @@ const winPatterns = [
 // console.log(board)
 
 function Player(name, marker) {
+    name = name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
     return {
-        marker,
         name,
+        marker,
     }
 }
 
+
 let playerOne = Player('boy', 'X');
 let playerTwo = Player('girl', 'O')
+console.log(playerOne)
 
 let currentPlayer = playerOne;
+
 
 // Play turn function
 function play(e) {
     
+    // Check first if selected slot is empty
     if (!e.target.textContent) {
         e.target.textContent = currentPlayer.marker;
 
+        // Update the gameBoard array
         let index = Number(e.target.dataset.index)
         gameBoard[index] = currentPlayer.marker;
 
@@ -80,26 +89,31 @@ function gameEnd(board, winPattern) {
         if (a === b && b === c) {
             gameStatus.textContent = `${currentPlayer.name} (${currentPlayer.marker}) wins, please restart game`;
             gameContainer.removeEventListener('click', play)
-            confirm =  true;
+            allowReset =  true;
             return;
         }
     }
 
+    // Check for draw
     if (board.join('').length >= 9) {
         gameStatus.textContent = "Game Over! It's a draw"
         gameContainer.removeEventListener('click', play);
+        allowReset = true;
         return;
     }
     changeCurrentPlayer()
 }
 
-let confirm = false;
 // Reset game function
 function  resetGame(confirm) {
+
+    // Allow direct refresh if allowReset is true
     if (confirm) {
         location.reload()
-        return;
+    } else {
+
+        // Ask for confirmation before reload
+        confirm = window.confirm('Are you sure you want to restart?')
+        confirm ? location.reload() : '';
     }
-    confirm = window.confirm('Are you sure you want to restart?')
-    confirm ? location.reload() : '';
 }
