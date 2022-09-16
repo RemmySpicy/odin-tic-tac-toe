@@ -49,7 +49,7 @@ function play(e) {
         let index = Number(e.target.dataset.index)
         gameBoard[index] = currentPlayer.marker;
 
-        gameEnd()
+        gameEnd(gameBoard, winPatterns)
     } else {
         gameStatus.textContent = 'Select an empty slot';
     }
@@ -67,31 +67,39 @@ function changeCurrentPlayer() {
 }
 
 // Check WIN/DRAW function
-function gameEnd() {
+function gameEnd(board, winPattern) {
    
     for (let i = 0; i < 8; i++) {
-        let pattern = winPatterns[i]
-        let a = gameBoard[pattern[0]];
-        let b = gameBoard[pattern[1]];
-        let c = gameBoard[pattern[2]];
+        let pattern = winPattern[i]
+        let a = board[pattern[0]];
+        let b = board[pattern[1]];
+        let c = board[pattern[2]];
 
         if (a === undefined || b === undefined || c === undefined) continue;
 
         if (a === b && b === c) {
             gameStatus.textContent = `${currentPlayer.name} (${currentPlayer.marker}) wins, please restart game`;
             gameContainer.removeEventListener('click', play)
+            confirm =  true;
             return;
         }
     }
 
-    if (gameBoard.join('').length >= 9) {
+    if (board.join('').length >= 9) {
         gameStatus.textContent = "Game Over! It's a draw"
+        gameContainer.removeEventListener('click', play);
+        return;
     }
     changeCurrentPlayer()
 }
 
+let confirm = false;
 // Reset game function
 function  resetGame(confirm) {
+    if (confirm) {
+        location.reload()
+        return;
+    }
     confirm = window.confirm('Are you sure you want to restart?')
-    confirm ? location.reload() : alert('play on');
+    confirm ? location.reload() : '';
 }
