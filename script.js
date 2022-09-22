@@ -39,7 +39,7 @@ function Player(name, marker) {
     }
 }
 
-
+// declare players
 let playerOne = Player('boy', 'X');
 let playerTwo = Player('girl', 'O')
 console.log(playerOne)
