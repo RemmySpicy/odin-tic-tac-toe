@@ -117,3 +117,19 @@ function  resetGame(confirm) {
         confirm ? location.reload() : '';
     }
 }
+
+
+let person = {
+    name: 'yinka',
+    age: 17,
+    siblings: {
+        1: {
+            name: 'shade',
+            age: 22,
+        },
+        2: {
+            name: 'bose',
+            age: '13'
+        }
+    }
+}
