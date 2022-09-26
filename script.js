@@ -30,7 +30,7 @@ const winPatterns = [
 // })()
 
 // console.log(board)
-
+console.log(name);
 function Player(name, marker) {
     name = name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
     return {
@@ -42,7 +42,7 @@ function Player(name, marker) {
 // declare players
 let playerOne = Player('boy', 'X');
 let playerTwo = Player('girl', 'O')
-console.log(playerOne)
+console.table(playerOne)
 
 let currentPlayer = playerOne;
 
