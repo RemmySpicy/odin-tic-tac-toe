@@ -30,7 +30,7 @@ const winPatterns = [
 // })()
 
 // console.log(board)
-console.log(name);
+
 function Player(name, marker) {
     name = name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
     return {
